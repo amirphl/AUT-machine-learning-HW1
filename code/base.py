@@ -165,9 +165,12 @@ def gradient_descent(X_train, y_train, X_test, y_test, alpha, lambda_, iteration
         step_size = alpha * grad
         theta = theta - step_size
         train_cost_history[iteration] = cost_function(
-            X_train, y_train, theta, lambda_, cf
-        )
-        test_cost_history[iteration] = cost_function(X_test, y_test, theta, lambda_, cf)
+            X_train, y_train, theta, None, cf
+        )  # note: always pass lambda as None
+        test_cost_history[iteration] = cost_function(
+            X_test, y_test, theta, None, cf
+        )  # note: always pass lambda as None
+
         step_sizes[iteration] = step_size
     return theta, train_cost_history, test_cost_history, step_sizes
 
@@ -185,8 +188,12 @@ def normal_equation(X_train, y_train, X_test, y_test, alpha, lambda_, iterations
         )
     return (
         theta,
-        [cost_function(X_train, y_train, theta, lambda_, cf)],
-        [cost_function(X_test, y_test, theta, lambda_, cf)],
+        [
+            cost_function(X_train, y_train, theta, None, cf)
+        ],  # note: always pass lambda as None
+        [
+            cost_function(X_test, y_test, theta, None, cf)
+        ],  # note: always pass lambda as None
         np.zeros((1, n)),
     )
 
@@ -203,13 +210,18 @@ def next_color():
         7: "gray",
         8: "black",
         9: "orange",
+        10: "DarkRed",
+        11: "DeepPink",
+        12: "DarkKhaki",
+        13: "RebeccaPurple",
+        14: "DeepSkyBlue",
     }
     for i in range(1000):
-        yield colors[i % 10]
+        yield colors[i % 15]
 
 
 def plot_2d_data(X_df, y_df, path, title=""):
-    plt.figure()
+    plt.figure(figsize=(20, 15))
     plt.plot(X_df.values, y_df.values, ".")
     plt.xlabel("x")
     plt.ylabel("y")
@@ -262,7 +274,7 @@ def plot_model(
     if plot_best_fit:
         y_test_predicted = predict(X_test, theta)
         y_best_fit = predict(X_train, theta)
-        plt.figure()
+        plt.figure(figsize=(20, 15))
         plt.plot(X_train[:, 1], y_train, ".", color="r", label="X_train, y_train")
         plt.plot(X_train[:, 1], y_best_fit, ".", color="y", label="best fit")
         plt.plot(X_test[:, 1], y_test, ".", color="b", label="X_test, y_test")
@@ -286,7 +298,7 @@ def plot_model(
     # ----
 
     if plot_cost_per_iteration:
-        plt.figure()
+        plt.figure(figsize=(20, 15))
         plt.plot(
             range(1, iterations + 1),
             train_cost_history,
@@ -314,7 +326,7 @@ def plot_model(
     # ----
 
     if plot_step_size_per_iteration:
-        plt.figure()
+        plt.figure(figsize=(20, 15))
         _, n = step_sizes.shape
         get_next_color = next_color()
         for i in range(n):
@@ -350,7 +362,7 @@ def _plot_models(
             index,
             models,
         ) in all_models.items():  # index is either iteration, degree, or lambda
-            plt.figure()
+            plt.figure(figsize=(20, 15))
             get_next_color = next_color()
             plt.plot(
                 models[0]["X_train"][:, 1],
@@ -404,7 +416,7 @@ def _plot_models(
             # ----
     if plot_cost_per_iteration:
         for index, models in all_models.items():
-            plt.figure()
+            plt.figure(figsize=(20, 15))
             get_next_color = next_color()
             if index_type == "iterations" and index == 1:
                 for model in models:
@@ -517,7 +529,7 @@ def _plot_models(
             # ----
     if plot_step_size_per_iteration:
         for index, models in all_models.items():
-            plt.figure()
+            plt.figure(figsize=(20, 15))
             get_next_color = next_color()
             for model in models:
                 plt.plot(

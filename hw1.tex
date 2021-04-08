@@ -1,0 +1,284 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[lmargin=1in,rmargin=1in,tmargin=1in,bmargin=1in]{geometry}
+
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow			% Use Multi-rows
+}
+\usepackage[framemethod=TikZ]{mdframed}
+
+
+% -------------------
+% Font
+% -------------------
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+
+
+% -------------------
+% Commands
+% -------------------
+\newcommand{\homework}[2]{\noindent\textbf{Name: Amirmohammad Pirhosseinloo}\makebox[3in]{\hrulefill} \hfill \textbf{99131006} \\  \textbf{machine learning course} \hfill \textbf{HW1}\\}
+
+\newcommand{\prob}{\noindent\textbf{Problem. }}
+\newcounter{problem}
+\newcommand{\problem}{
+	\stepcounter{problem}%
+	\noindent \textbf{Problem \theproblem. }%
+}
+\newcommand{\pointproblem}[1]{
+	\stepcounter{problem}%
+	\noindent \textbf{Problem \theproblem.} (#1 points)\,%
+}
+\newcommand{\pspace}{\par\vspace{\baselineskip}}
+\newcommand{\ds}{\displaystyle}
+
+
+% -------------------
+% Theorem Environment
+% -------------------
+\mdfdefinestyle{theoremstyle}{%
+	frametitlerule=true,
+	roundcorner=5pt,
+	linecolor=black,
+	outerlinewidth=0.5pt,
+	middlelinewidth=0.5pt
+}
+\mdtheorem[style=theoremstyle]{exercise}{\textbf{Problem}}
+
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+\renewcommand{\headrulewidth}{0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage \,of \pageref{LastPage}}
+\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=0pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+
+% -------------------
+% Content
+% -------------------
+\begin{document}
+\homework{\#}{MM/DD}
+
+
+% Question 1
+\begin{exercise}
+definitions:
+	\begin{enumerate}[(1)]
+	\item supervised learning: refers to a class of algorithms that determine a predictive model using data points with known outcomes.
+	\item semi-supervised learning: Semi-supervised learning stands somewhere between the supervised learning and unsupervised. It solves classification problems, which means you’ll ultimately need a supervised learning algorithm for the task. But at the same time, you want to train your model without labeling every single training example, for which you’ll get help from unsupervised machine learning techniques.
+	\item unsupervised learning: Unsupervised learning refers to the use of algorithms to identify patterns in data sets containing data points that are not labeled.
+	\item reinforcement learning: it is learning by interacting with an environment. An RL agent learns from the consequences of its actions, rather than from being explicitly taught and it selects its actions on basis of its past experiences (exploitation) and also by new choices (exploration).
+	\item transfer learning: Transfer learning is the reuse of a pre-trained model on a new problem.
+	\item classification: Classification in machine learning is when using an algorithm to draw conclusions from data that it already has, and then uses these conclusions to categorise new data it receives.
+	\item regression: Regression consists of a set of machine learning methods that allow us to predict a continuous outcome variable (y) based on the value of one or multiple predictor variables (x).
+	\item online learning: Online machine learning includes methods to create machine learning models using data which becomes available sequentially in time.
+	\item overfitting: Overfitting happens when a model learns the detail and noise in the training data to the extent that it negatively impacts the performance of the model on new data. This means that the noise or random fluctuations in the training data is picked up and learned as concepts by the model.
+	\item active learning: Active learning is a special case of machine learning in which a learning algorithm can interactively query a user (or some other information source) to label new data points with the desired outputs.
+	\item correlation: Correlation is a bivariate analysis that measures the strength of association between two variables and the direction of the relationship.  In terms of the strength of relationship, the value of the correlation coefficient varies between +1 and -1.  A value of ± 1 indicates a perfect degree of association between the two variables.  As the correlation coefficient value goes towards 0, the relationship between the two variables will be weaker.  The direction of the relationship is indicated by the sign of the coefficient; a + sign indicates a positive relationship and a – sign indicates a negative relationship.
+	\item independence:Two events A and B are statistical independent if and only if their joint probability can be factorized into their marginal probabilities, i.e., P($A \cap B$) = $P(A)P(B)$
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+    \begin{enumerate}[(a)]
+        \item Whats the effect of increasing the size of training dataset on model's bias and variance? \\
+        answer: It doesn't have any effect on lowering the bias. To achieve such a goal, its better to change the model (algorithm). However, it'll help in decreasing the variance in a high variance model since it helps in generalization of model.
+        \item Describe 4 was to prevent overfitting.
+        \\ answer:
+        \\ Use more data to train as described in the previous section.
+        \\ Reduce model complexity by removing some features (parameters).
+        \\ Use regularization techniques to eliminate the effect of higher parameters in the model.
+        \\ Use Early stopping method to choose the best value for \#iterations.
+    \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+    Consider two datasets both sampled from the same distribution. There are 2000 samples in the first one and 100000 in the second one. Two models are trained from the datasets with 70 percent of dataset as the the training data and the rest as the test one. Compare training and testing costs of two models to each other.
+    \\ answer: 
+    \\ \color{blue}\href{https://github.com/amirphl/AUT-machine-learning-HW1/raw/main/q3.png}{This is the figure comparing the costs}
+\end{exercise}
+
+\begin{exercise}
+    Define MAE, MSE, and RMSE then explain their use-cases.
+    \begin{enumerate}
+        \item MAE (Mean Absolute Error): represents the average of the absolute difference between the actual and predicted values in the dataset. 
+        \\ \centerline{$\frac{1}{M}\sum{|\hat{y} - y\textsubscript{i}|}$}
+        \\ its better to use MAE when you have very few or no outliers in the dataset or in a better way when you want to ignore the outliers while fitting your model to your data.
+        \item MSE (Mean Square Error): represents the squared difference between the actual and predicted values in the dataset.
+        \\ \centerline{$\frac{1}{M}\sum{(\hat{y} - y\textsubscript{i})\textsuperscript{2}}$}
+        \item RMSE (Root Mean Square Error): the square root of MSE.
+        \\ \centerline{$\sqrt{\frac{1}{M}\sum{(\hat{y} - y\textsubscript{i})\textsuperscript{2}}}$}
+        \\ you can use MSE or RMSE when you have a large number of outliers in your data and want to accommodate them while fitting your model.
+    \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+    What is the momentum effect in gradient descent algorithm?
+    What are its benefits?
+    What is the impact of lower momentum and the higher momentum?
+    \\ answer
+    
+    Momentum is a method which helps accelerate gradients vectors in the right directions, thus leading to faster converging.
+    
+    A problem with the gradient descent algorithm is that the progression of the search can bounce around the search space based on the gradient. For example, the search may progress downhill towards the minima, but during this progression, it may move in another direction, even uphill, depending on the gradient of specific points (sets of parameters) encountered during the search.
+    
+    This can slow down the progress of the search, especially for those optimization problems where the broader trend or shape of the search space is more useful than specific gradients along the way.
+
+    One approach to this problem is to add history to the parameter update equation based on the gradient encountered in the previous updates.
+    
+    In gradient descent, the weights are updated by:
+    \\\centerline{$change(x) = step\_size * f'(x)$}
+    \\ \centerline{$x = x - change(x)$}
+    While in momentum gradient descent:
+    \\ \centerline{$change(x,t) = step\_size * f'(x(t-1)) + momentum * change(x,t-1)$}
+    \\ \centerline{$x(t) = x(t-1) - change(x,t)$}
+    
+    For example, a large momentum (e.g. 0.9) will mean that the update is strongly influenced by the previous update, whereas a modest momentum (0.2) will mean very little influence.
+\end{exercise}
+
+\begin{exercise}
+Assume that there is a dataset with n samples, each sample is $d$ dimensional, and SSE equals to:
+$J(w) = \sum{(y\textsubscript{i} - w\textsuperscript{T}x\textsubscript{i})\textsuperscript{2}}$
+   \begin{enumerate}
+        \item Prove that $\hat{w}$ which results in minimum SSE in linear regression equals to:
+        $(X\textsuperscript{T}X)\textsuperscript{-1}X\textsuperscript{T}Y$
+        \\ answer:
+        \\ common matrix derivative formulas:
+        \\ \centerline{$\frac{\partial{(B\textsuperscript{T}AB)}}{\partial{B}} = AB + A\textsuperscript{T}B$}
+        \\ \centerline{$\frac{\partial{(AB)}}{\partial{B}} = A\textsuperscript{T}$}
+        \\ $J(w) = (Xw - Y)\textsuperscript{T}(Xw - Y)$
+        \\ $ = ((Xw)\textsuperscript{T} - Y\textsuperscript{T})(Xw - Y)$
+        \\ $ = (Xw)\textsuperscript{T}Xw - (Xw)\textsuperscript{T}Y - Y\textsuperscript{T}Xw + Y\textsuperscript{T}Y$
+        \\ $ = w\textsuperscript{T}X\textsuperscript{T}Xw - (Y\textsuperscript{T}Xw)\textsuperscript{T} - Y\textsuperscript{T}Xw + Y\textsuperscript{T}Y$
+        \\ $ = w\textsuperscript{T}X\textsuperscript{T}Xw - 2Y\textsuperscript{T}Xw + Y\textsuperscript{T}Y$
+        \\ $\frac{\partial{J(w)}}{\partial{w}} = X\textsuperscript{T}Xw + X\textsuperscript{T}Xw - 2X\textsuperscript{T}Y = 2X\textsuperscript{T}Xw - 2X\textsuperscript{T}Y $
+        \\ $\frac{\partial{J(w)}}{\partial{w}} = 0 \Rightarrow X\textsuperscript{T}Xw = X\textsuperscript{T}Y \Rightarrow w = (X\textsuperscript{T}X)\textsuperscript{-1}X\textsuperscript{T}Y$
+        
+        \item Explain two problems of using the above formula and suggest the solutions to fix them.
+        \\a) $X\textsuperscript{T}X$ might be non invertible. Since all of the cells of $X\textsuperscript{T}X$ are positive, the matrix is positive semi definite, so we can always obtain a non singular (invertible) matrix from $X\textsuperscript{T}X$ and use it to find $\hat{w}$.
+        \\b)
+        Its too computationally expensive to compute inverse of a matrix ($o(n^2{log_2 n})$).
+        
+        \item What happens if one of the columns of $X$ is a linear combination of the others?
+        \\ answer:
+        \\ Display matrix $X$ as:
+        \\ \centerline{
+        \begin{bmatrix}
+            x\textsubscript{1} & x\textsubscript{2} & ... & x\textsubscript{n} 
+        \end{bmatrix}
+        }
+        \\ Assume that column $x\textsubscript{n}$ is a linear combination of the other columns (It doesn't matter whether to select $x\textsubscript{n}$ or any other column as the linear combination of the others, its just for simplicity). We can compute $X\textsuperscript{T}X$ as follows:
+        \\ $x_n = a_1x_1 + a_2x_2 + ... + a_{n-1}x_{n-1}$
+        \\ $X^T = $
+        \begin{bmatrix}
+            x_1^T \\ x_2^T \\ ... \\ x_n^T 
+        \end{bmatrix}
+        \\ 
+        $X^TX = $
+        \begin{bmatrix}
+            x_1^Tx_1 & x_1^Tx_2 & ... & x_1^Tx_n \\
+            x_2^Tx_1 & x_2^Tx_2 & ... & x_2^Tx_n \\
+            ... & ... & ... & ... \\
+            x_n^Tx_1 & x_n^Tx_2 & ... & x_n^Tx_n
+        \end{bmatrix}
+        \\ extending last column of $X^TX$:
+        \begin{bmatrix}
+            a_1x_1^Tx_1 & a_2x_1^Tx_2 & ... & a_{n-1}x_1^Tx_{n-1}    \\
+            a_1x_2^Tx_1 & a_2x_2^Tx_2 & ... & a_{n-1}x_2^Tx_{n-1}    \\
+                ... \\
+            a_1x_n^Tx_1 & a_2x_n^Tx_2 & ... & a_{n-1}x_n^Tx_{n-1}
+        \end{bmatrix}
+        \\ We can conclude that the last column of $X^TX$ is the linear combination of other columns of $X^TX$. \color{blue}\href{https://math.stackexchange.com/questions/1400800/why-is-this-true-for-matrices-linearly-dependent-columns-implies-not-inverti/1400803}{Also a matrix with linear dependent columns is non invertible}, \color{black} so $X^TX$ is non invertible, therefore, its not possible to compute $\hat{w}$ in this case.
+        To solve the problem, we can simply eliminate the column $x_n$ since it doesn't provide any special information to our model. Such columns can be eliminated in feature extraction phase.
+        
+        \item Compute the closed form of $\hat{w}$ if $J(w) = \sum{(y\textsubscript{i} - w\textsuperscript{T}x\textsubscript{i})\textsuperscript{2}} + ||w||\textsuperscript{2}$. Also explain the benefits of adding $||w||\textsuperscript{2}$.
+        \\ answer:
+        \\ common matrix derivative formulas:
+        \\ \centerline{$\frac{\partial{(B\textsuperscript{T}B)}}{\partial{B}} = 2B$}
+        \\ $J(w) = \sum{(y\textsubscript{i} - w\textsuperscript{T}x\textsubscript{i})\textsuperscript{2}} + w\textsuperscript{T}w$
+        \\ $\frac{\partial{J(w)}}{\partial{w}} = 2X\textsuperscript{T}Xw - 2X\textsuperscript{T}Y + 2w$
+        \\ $\frac{\partial{J(w)}}{\partial{w}} = 0 \Rightarrow w = (X\textsuperscript{T}X + I )\textsuperscript{-1}X\textsuperscript{T}Y$
+        \\ 
+        Adding such a term to the formula makes the $X^TX + I$ invertible and we able to compute $\hat{w}$.
+        
+        \item Compute closed form of $\hat{w}$ if $J(w) = \sum{F\textsubscript{i}(y\textsubscript{i} - w\textsuperscript{T}x\textsubscript{i})\textsuperscript{2}}$. (weighted linear regression)
+        \\ answer:
+        \\ common matrix derivative formulas:
+        \\\centerline{ $\frac{\partial{(B\textsuperscript{T}AB)}}{\partial{B}} = AB + A\textsuperscript{T}B$}
+        \\ \centerline{$\frac{\partial{(AB)}}{\partial{B}} = A\textsuperscript{T}$}
+        \\ $F\textsubscript{i}$ coefficients are demonstrated in a matrix such as below:
+        \\ $F = $
+        \begin{bmatrix}
+            F_1 & 0 & 0 & ... & 0 & 0 \\
+            0 & F_2 & 0 & ... & 0 & 0 \\
+            ... & ... & ... & ... & ... & ... \\
+            0 & 0 & 0 & ... & F_{n-1} & 0 \\
+            0 & 0 & 0 & ... & 0 & F_{n}
+        \end{bmatrix}
+        \\ Its obvious that $F^T=F$
+        \\ Now follow the steps:
+        \\ $J(w) = (Xw - Y)\textsuperscript{T}F(Xw - Y)$
+        \\ $ = ((Xw)\textsuperscript{T}F - Y\textsuperscript{T}F)(Xw - Y)$
+        \\ $ = (Xw)\textsuperscript{T}FXw - (Xw)F\textsuperscript{T}Y - Y\textsuperscript{T}FXw + Y\textsuperscript{T}FY$
+        \\ $ = w\textsuperscript{T}X\textsuperscript{T}FXw - Y\textsuperscript{T}FXw + Y\textsuperscript{T}FY$
+        \\ $\frac{\partial{J(w)}}{\partial{w}} = X\textsuperscript{T}FXw + X\textsuperscript{T}FXw - 2X\textsuperscript{T}FY = 2X\textsuperscript{T}FXw - 2X\textsuperscript{T}FY $
+        \\ $\frac{\partial{J(w)}}{\partial{w}} = 0 \Rightarrow X\textsuperscript{T}FXw = X\textsuperscript{T}FY \Rightarrow w = (X\textsuperscript{T}FX)\textsuperscript{-1}X\textsuperscript{T}FY$
+   \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Assume that $y = w_0 + w_1x_1 + w_2x_2 + w_3x_1^2 + \epsilon$ where $\epsilon \sim N(0, \sigma^2)$.
+    \begin{enumerate}[(a)]
+        \item Find an equation for $p(y|x_1, x_2)$.
+        \\ answer:
+        \\ $\prod{p(y_i|x_1^i, x_2^i;w_0, w_1, w_2, w_3, s^2)} = \prod{\frac{1}{\sqrt{2\pi s^2}}e^{\frac{(y_i - (w_0 + w_1x_1^i + w_2x_2^i + w_3(x_1^i)^2))^2}{2s^2}}}$
+        
+        \item Find the log likelihood for training dataset.
+        \\ answer:
+        \\ $L(w_0, w_1, w_2, w_3, s^2) = log\prod{p(y_i|x_1^i, x_2^i;w_0, w_1, w_2, w_3, s^2)}$
+        \\ $ = \sum{log({p(y_i|x_1^i, x_2^i;w_0, w_1, w_2, w_3, s^2)})}$
+        \\ $ = -\frac{n}{2}log(2\pi) - nlog(s) - \frac{1}{2s^2}\sum{(y_i - (w_0 + w_1x_1^i + w_2x_2^i + w_3(x_1^i)^2))^2}$
+        
+        \item Find $f(w_0, w_1, w_2, w_3)$ such that the best fit is calculated by minimizing $f$.
+        \\ answer:
+        \\ $\sum{(y_i - (w_0 + w_1x_1^i + w_2x_2^i + w_3(x_1^i)^2))^2}$
+        
+        \item Calculate $\frac{\partial{f}}{\partial{w}}$.
+        \\ answer:
+        \\ $\frac{\partial{f}}{\partial{w_0}} = 2\sum{(y_i - (w_0 + w_1x_1^i + w_2x_2^i + w_3(x_1^i)^2))}$
+        \\ $\frac{\partial{f}}{\partial{w_1}} = 2\sum{(y_i - (w_0 + w_1x_1^i + w_2x_2^i + w_3(x_1^i)^2))x_1^i}$
+        \\ $\frac{\partial{f}}{\partial{w_2}} = 2\sum{(y_i - (w_0 + w_1x_1^i + w_2x_2^i + w_3(x_1^i)^2))x_2^i}$
+        \\ $\frac{\partial{f}}{\partial{w_3}} = 2\sum{(y_i - (w_0 + w_1x_1^i + w_2x_2^i + w_3(x_1^i)^2))(x_1^i)^2}$
+    \end{enumerate}
+\end{exercise}
+%\[
+%\int e^{-x^2} \;dx
+%\] \vspace{6cm}
+\end{document}
