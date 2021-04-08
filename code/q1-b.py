@@ -14,13 +14,13 @@ def read_shuffle_normalize_data():
 
 
 if __name__ == "__main__":
-    path = "./q1-outputs/"
-    algorithm = NE
+    path = "./q1-section_b-outputs/"
+    algorithm = GD
     start_degree = 2
     alpha = 0.1
-    degrees = [5, 7]
+    degrees = [3, 5, 7]
     cost_functions = [MSE, RMSE]
-    lambdas = [None, 5]
+    lambdas = [None]
     iterations = [1000, 10000]
     create_outputs_folder(path)
     X_df, y_df = read_shuffle_normalize_data()
@@ -42,14 +42,14 @@ if __name__ == "__main__":
         iterations,
     )
 
-    # for model in models:
-    #    plot_model(
-    #        model,
-    #        path,
-    #        plot_best_fit=True,
-    #        plot_cost_per_iteration=True,
-    #        plot_step_size_per_iteration=True,
-    #    ) TODO uncomment
+    for model in models:
+        plot_model(
+            model,
+            path,
+            plot_best_fit=True,
+            plot_cost_per_iteration=True,
+            plot_step_size_per_iteration=True,
+        )
     plot_models(
         models,
         path,
@@ -58,5 +58,5 @@ if __name__ == "__main__":
         plot_per_lambda=True,
         plot_best_fit=True,
         plot_cost_per_iteration=True,
-        plot_step_size_per_iteration=False,  # TODO make it True
+        plot_step_size_per_iteration=True,
     )
