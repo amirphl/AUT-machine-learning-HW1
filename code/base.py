@@ -236,6 +236,7 @@ def plot_model(
     plot_best_fit=False,
     plot_cost_per_iteration=True,
     plot_step_size_per_iteration=True,
+    test_or_validation="test",
 ):
     algorithm = model["algorithm"]
     X_train = model["X_train"]
@@ -256,7 +257,7 @@ def plot_model(
         algorithm,
         "train_cost:",
         train_cost_history[-1],
-        "test_cost:",
+        test_or_validation + "_cost:",
         test_cost_history[-1],
         "cf:",
         cf,
@@ -277,13 +278,23 @@ def plot_model(
         plt.figure(figsize=(20, 15))
         plt.plot(X_train[:, 1], y_train, ".", color="r", label="X_train, y_train")
         plt.plot(X_train[:, 1], y_best_fit, ".", color="y", label="best fit")
-        plt.plot(X_test[:, 1], y_test, ".", color="b", label="X_test, y_test")
+        plt.plot(
+            X_test[:, 1],
+            y_test,
+            ".",
+            color="b",
+            label="X_" + test_or_validation + ", y_" + test_or_validation,
+        )
         plt.plot(
             X_test[:, 1],
             y_test_predicted,
             ".",
             color="g",
-            label="X_test, y_test_predicted",
+            label="X_"
+            + test_or_validation
+            + ", y_"
+            + test_or_validation
+            + "_predicted",
         )
         plt.xlabel("x")
         plt.ylabel("y")
@@ -311,7 +322,7 @@ def plot_model(
             test_cost_history,
             ".",
             color="b",
-            label="test cost hisotry",
+            label=test_or_validation + " cost hisotry",
         )
         plt.xlabel("iteration")
         plt.ylabel("cost")
@@ -356,6 +367,7 @@ def _plot_models(
     plot_best_fit=False,
     plot_cost_per_iteration=True,
     plot_step_size_per_iteration=True,
+    test_or_validation="test",
 ):
     if plot_best_fit:
         for (
@@ -376,7 +388,7 @@ def _plot_models(
                 models[0]["y_test"],
                 ".",
                 color=next(get_next_color),
-                label="test data",
+                label=test_or_validation + " data",
             )
             for model in models:
                 plt.plot(
@@ -397,7 +409,8 @@ def _plot_models(
                     predict(model["X_test"], model["theta"]),
                     ".",
                     color=next(get_next_color),
-                    label="test_data_prediction-degree_{}-alpha_{}-lambda_{}-cf_{}-iterations_{}".format(
+                    label=test_or_validation
+                    + "_data_prediction-degree_{}-alpha_{}-lambda_{}-cf_{}-iterations_{}".format(
                         model["degree"],
                         model["alpha"],
                         model["lambda_"],
@@ -438,7 +451,8 @@ def _plot_models(
                         model["test_cost_history"],
                         ".",
                         color=next(get_next_color),
-                        label="test_cost-degree_{}-alpha_{}-lambda_{}-cf_{}-iterations_{}".format(
+                        label=test_or_validation
+                        + "_cost-degree_{}-alpha_{}-lambda_{}-cf_{}-iterations_{}".format(
                             model["degree"],
                             model["alpha"],
                             model["lambda_"],
@@ -475,7 +489,8 @@ def _plot_models(
                         model["test_cost_history"],
                         ".",
                         color=next(get_next_color),
-                        label="test_cost-degree_{}-alpha_{}-lambda_{}-cf_{}-iterations_{}".format(
+                        label=test_or_validation
+                        + "_cost-degree_{}-alpha_{}-lambda_{}-cf_{}-iterations_{}".format(
                             model["degree"],
                             model["alpha"],
                             model["lambda_"],
@@ -510,7 +525,8 @@ def _plot_models(
                         model["test_cost_history"],
                         ".",
                         color=next(get_next_color),
-                        label="test_cost_history-degree_{}-alpha_{}-lambda_{}-cf_{}-iterations_{}".format(
+                        label=test_or_validation
+                        + "_cost_history-degree_{}-alpha_{}-lambda_{}-cf_{}-iterations_{}".format(
                             model["degree"],
                             model["alpha"],
                             model["lambda_"],
@@ -576,6 +592,7 @@ def plot_models(
     plot_best_fit=False,
     plot_cost_per_iteration=True,
     plot_step_size_per_iteration=True,
+    test_or_validation="test",
 ):
     if plot_per_iteration:
         models_per_iteration = defaultdict(list)
@@ -588,6 +605,7 @@ def plot_models(
             plot_best_fit=plot_best_fit,
             plot_cost_per_iteration=plot_cost_per_iteration,
             plot_step_size_per_iteration=plot_step_size_per_iteration,
+            test_or_validation=test_or_validation,
         )
 
     if plot_per_degree:
@@ -601,6 +619,7 @@ def plot_models(
             plot_best_fit=plot_best_fit,
             plot_cost_per_iteration=plot_cost_per_iteration,
             plot_step_size_per_iteration=plot_step_size_per_iteration,
+            test_or_validation=test_or_validation,
         )
 
     if plot_per_lambda:
@@ -614,6 +633,7 @@ def plot_models(
             plot_best_fit=plot_best_fit,
             plot_cost_per_iteration=plot_cost_per_iteration,
             plot_step_size_per_iteration=plot_step_size_per_iteration,
+            test_or_validation=test_or_validation,
         )
 
 
